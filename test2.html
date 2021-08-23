@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    <li>
+        <input type="checkbox" name="box"></input>AAA
+    </li>
+
+    <li>
+        <input type="checkbox" name="box"></input>BBB
+    </li>
+
+    <li>
+        <input type="checkbox" name="box"></input>CCC
+    </li>
+
+    <li>
+        <input type="checkbox" name="box"></input>DDD
+    </li>
+
+    <li>
+        <input type="checkbox" name="box"></input>EEE
+    </li>
+</ul>
+
+<div id="target">
+
+
+</div>
+
+    <script>
+        //체크박스를 전체 체크 되어있는 상태로 만들기위해 : 체크박스가 어디있는지 파악 후 checked = true를 준다.
+        // 체크박스가 어디있는지 파악하기 위해 input태그를 다 찾는다.
+
+        // var arr = document.querySelector("input") // 하나(DOM요소 중에 제일 앞에 있는 것)만 찾는거
+        var arr = document.querySelectorAll("input") // 전체 찾는거
+        console.log(arr)
+
+        for(var i = 0; i <arr.length; i++){
+            arr[i].checked = true //속성을 변화시킬 수 있는 것
+        }
+
+        //div태그와 관련
+        //1. id 가 target인 것을 먼저 찾는다
+        var target = document.querySelector("#target")
+        //2. innerHTML을 이용해서 id가 target인 태그안에 넣어줄 쿼리문을 추가한다.
+        target.innerHTML = "<button>AAAA</button>";
+
+        //삭제
+        var sample = document.querySelector("input").parentElement
+
+        var parent = sample.parentElement;
+
+        parent.removeChild(sample)
+
+    </script>
+
+</body>
+</html>
