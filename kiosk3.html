@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+  <ul class="items">
+    <li>
+      <div>
+        <span class="menu">빅맥</span>
+        <span class="price">5000</span>
+      </div>
+    </li>
+    <li>
+      <div>
+        <span class="menu">상하이버거</span>
+        <span class="price">6000</span>
+      </div>
+    </li>
+    <li>
+      <div>
+        <span class="menu">불고기버거</span>
+        <span class="price">4500</span>
+      </div>
+    </li>
+    <li>
+      <div>
+        <span class="menu">더블치즈버거</span>
+        <span class="price">6000</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div><!--위쪽div의 내용을 클릭하면 여기로 들어오게-->
+  <ul class="cart">
+
+  </ul>
+</div>
+<div>
+  <h2 id="total"></h2>
+</div>
+
+<script>
+  var cart = document.querySelector(".cart")
+  var arr = document.querySelectorAll(".items li")
+  var total = document.querySelector("#total")
+
+  for (var i=0; i < arr.length ; i++){
+    arr[i].addEventListener("click", function (e){
+
+      console.log(e)
+      var targetLi = this
+      var menu = targetLi.querySelector(".menu").innerHTML;
+      var price = targetLi.querySelector(".price").innerHTML;
+
+      console.log(menu,price)
+
+      var str = "<li><span class='tmenu'>"+menu+"</span><span class='tprice'>"+price+"</span><button>X</button></li>"
+
+      cart.innerHTML += str
+
+      makeTotal()
+
+    },false)
+  }
+
+  cart.addEventListener("click",function (e){
+    console.log(e.target)
+
+    //만일 e.target이 버튼이라면
+    if (e.target.matches('button')){
+      var targetLi = e.target.parentElement
+      console.log(targetLi)
+      cart.removeChild(targetLi)
+      makeTotal()
+    }
+  },false)
+
+  //합계를 계산하는 함수를 하나 만들어줌
+  function makeTotal(){// 함수를 실행 할 때마다 cart에 담겨있는 price정보를 알아야한다 -> querySelector를 이용
+    console.log("--------makeTotal")
+
+    var priceSpans = document.querySelectorAll(".tprice")
+
+    console.log(priceSpans)
+
+    var sum = 0;
+    for (var i = 0; i<priceSpans.length; i++){
+      parseInt(priceSpans[i].innerHTML) // innerHTMl은 문자열이라서 int값으로 변경
+    }
+    total.innerHTML = sum;
+  }
+
+</script>
+</body>
+</html>

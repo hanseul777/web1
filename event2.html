@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+  .d3 {
+    margin : 50px;
+    background-color: aqua;
+  }
+  .d2 {
+    margin : 50px;
+    background-color: aquamarine;
+    height: 20vh;
+    text-align: center;
+    align-items: center;
+  }
+  .d1 {
+    max-resolution: 50px;
+    background-color: blue;
+      height: 40vh;
+  }
+</style>
+<body>
+
+<div class="d1">
+
+  <div class="d2">
+
+    <div class="d3">
+        <a href="/test1.html" class="sample">TEST1</a>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+    document.querySelector(".sample").addEventListener("click",(e) =>{
+        e.preventDefault();
+    }) // a태그의 기본동작을 막는다 -> 클릭해도 test1.html로 이동하지않게 막는다.
+
+    document.querySelector(".d3").addEventListener("click",(e) => console.log("d3"),false); //false : 캡쳐링을 지원하지 않음.(세번째 옵션이 없어도 상관은 없지만 가능하면 넣는게 좋다.)
+
+    document.querySelector(".d2").addEventListener("click",(e) => {
+        e.stopPropagation() // 이벤트 전파멈춤
+        console.log("d2")
+    },false);
+
+    document.querySelector(".d1").addEventListener("click",(e) => console.log("d1"),false);
+
+</script>
+</body>
+</html>

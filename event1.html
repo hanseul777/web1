@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<style>
+    .bg {
+        background-color: aqua;
+    }
+    .bgred{
+        background-color: red;
+        height: 50vh;
+    }
+</style>
+
+<button id="btn">CLICK</button> <!--버튼을 클릭하면 bg값을 bgred로 변경-->
+
+<div id="target" class="bg">
+    <h1>HELLO</h1>
+</div>
+
+<script>
+    var btn = document.querySelector("#btn") //아이디는 #으로 찾음
+    var target = document.querySelector("#target")
+
+    //callback함수(클릭하면 이렇게 실행해주세요) : 모든 콜백함수는 기본적으로 하나의 파라미터(event)를 받을 수 있다.
+    btn.addEventListener("click", function (e){
+        console.log("btn click");
+        console.log(e)
+        target.setAttribute("class","bgred")// setAttribute : class라는 attribute를 bgred로 변경
+    },false); // javascript의 함수는 파라미터의 수가 맞지않아도 실행이 가능하다. 두번째는 무조건 function이고 세번째는 false
+
+</script>
+
+</body>
+</html>

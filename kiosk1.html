@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <ul class="items">
+        <li><div>빅맥</div></li>
+        <li><div>상하이버거</div></li>
+        <li><div>불고기버거</div></li>
+        <li><div>치즈버거</div></li>
+        <li><div>후렌치후라이</div></li>
+    </ul>
+</div>
+
+<div><!--위쪽div의 내용을 클릭하면 여기로 들어오게-->
+    <ul class="cart">
+
+    </ul>
+</div>
+
+<script>
+    //items 밑의 li를 클릭하면 이벤트를 걸어준다. (5개니까 selectorAll)
+    var items = document.querySelectorAll(".items li div") // 클래스를 찾을 때는 . -> 지금 items클래스의 li밑에 div에 이벤트를 거는 것
+
+    var cart = document.querySelector(".cart")
+    console.log(items)
+
+    //event거는 loof돌려주기
+    for(var i = 0; i < items.length; i++){
+        items[i].addEventListener("click",(e)=>{
+            var target = e.target // event가 어디에서 발생했는지 알려준다. (누구를 클릭했는지 알려줌)
+            var str = target.innerHTML//햄버거이름출력
+
+            //cart의 원래 있던innerHTML에 추가해주기 -> += 사용
+            cart.innerHTML += "<li>" + str + "<button onclick='removeFn(event)'>X</button></li>"
+
+        },false) //function ()=>{}을 ()=>{}로 줄여쓸 수 있다.
+    }
+
+    //함수의 선언문으로 선언해서 button에 event주기 -> 버튼에 직접 event를 적용
+    function removeFn(event){
+        alert("동작확인")
+        var target = event.target.parentNode // target에서 버튼찾았고 삭제하려면 한 칸 더 올라가서 li를 지워야 한다 : parentNode
+        console.log(target) //parentNode 잘 작동했나 관리자도구에서 출력해보고 확인
+        cart.removeChild(target) //cart에서 한 칸 내려와서 ul로 내려와서 target을 지운다. : removeChild(target)
+    }
+</script>
+
+</body>
+</html>

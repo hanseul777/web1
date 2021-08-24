@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <ul class="items">
+        <li><div>빅맥</div></li>
+        <li><div>상하이버거</div></li>
+        <li><div>불고기버거</div></li>
+        <li><div>치즈버거</div></li>
+        <li><div>후렌치후라이</div></li>
+    </ul>
+</div>
+
+<div><!--위쪽div의 내용을 클릭하면 여기로 들어오게-->
+    <ul class="cart">
+
+    </ul>
+</div>
+
+<script>
+    var cart = document.querySelector(".cart")
+
+    document.querySelector(".items").addEventListener("click",function (e){
+
+        console.log(e.target)
+
+        cart.innerHTML += "<li>" + e.target.innerHTML + "<button>X</button></li>";
+    },false) // ul에 이벤트를 준 것 -> 안에있는 div전체에 이벤트가 걸려있음 : console.log(e.target)
+
+    // event는 정적인대상에만 걸 수 있다(기존에 있던 대상) -> 만약 button자체에 이벤트를 걸지 않는다면 ul class="cart"에 걸어야한다.
+    cart.addEventListener("click",function (e){
+
+        console.log(e.target)
+
+        //만일 e.target이 버튼이면 : console.log(e.target.matches('button')) - true
+        if(e.target.matches('button')){
+            var targetli = e.target.parentElemet
+            console.log(targetli)
+            cart.removeChild(targetli)
+        }
+    },false)
+
+</script>
+</body>
+</html>
