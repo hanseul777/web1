@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button id="btn">CLICK</button>
+
+<script>
+  //ajax : 화면이 깜빡거리지않고 서버와 데이터를 통신하는 기능 -> 서버의 부하를 줄여주기 위해서 나옴
+  // 서버와 데이터가 통신이 된다면 모바일에서도
+
+    document.querySelector("#btn").addEventListener("click", function (){
+
+        //const result=fetch: 동기화방식(다 끝난 뒤에야 result에 값을 넣음, 언제 끝날지 모름)
+        fetch("https://swapi.dev/api/people/1").then(res =>{ // 비동기 방식 : 다 끝나면 res를 콘솔창에 찍어라
+            //const body = res.body
+            //console.log(res.body)
+            res.json().then(data => { //url 가져오는데 성공하면 json데이터를 가져 와
+                console.log(data)//data를 콘솔에 찍어 줘
+            })
+        }) //여기있는 데이터를 다 가져오고. 그 다음에는 console.log를 실행해줘
+
+    },false)
+
+
+</script>
+
+</body>
+</html>

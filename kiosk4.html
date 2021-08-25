@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<ul class="menus">
+
+</ul>
+
+<div>
+    <ul class="cart">
+
+    </ul>
+    <h3 class="total"></h3>
+</div>
+
+<script>
+
+    //개발자가 마음대로 속성을 추가할 수 있음.
+
+    //상수는 const, 변하면 let
+    //menus를 배열로 받음
+    const menus = [
+        {name:'빅맥', price: 5000},
+        {name:'상하이버거', price: 5500},
+        {name:'불고기버거', price: 4500},
+        {name:'더블치즈버거', price: 5500}
+    ]
+    const cart = []
+
+    //문서가 제일먼저 열리면? 메뉴 보여주기
+    const menusDiv = document.querySelector(".menus")
+    const cartDiv = document.querySelector(".cart")
+
+    let str = "";
+    // 한번에 4개의 <li>를 만들어서 한 번에 바꿔줌
+    for(let i = 0; i < menus.length; i++){
+
+        const name = menus[i].name
+        const price = menus[i].price
+
+        str += `<li data-idx="${i}" data-name="${name}" data-price="${price}">${name}<span>${price}</span></li>` //기호주의하기 : li태그를 만들 때 편리하게 사용(브라우저마다 차이있음)
+        // str += "<li>" + menus[i].name + "<span>" + menus[i].price + "</span></li>"
+        //li는 단순히 리스트를 만드는 기능인데, li자체가 데이터를 가질 수 있도록 커스텀해주는 것 : data-idx="${i}"
+    }
+    menusDiv.innerHTML = str
+
+    //이벤트처리
+    document.querySelector(".menus").addEventListener("click", function (e) {
+        const targetLi = e.target // li를 클린한다고 가정함. / 지역변수라서 const로 선언해줌
+
+        const idx = targetLi.getAttribute("data-idx")
+
+        if(idx){ // 잘못눌러서 idx를 안누르는 상황을 방지 , 자바스크립트에서 if는 하는지마는지가 나올 때 사용한다.
+            console.log(idx)
+            refreshCart(menus[idx]) // 카트에 넣어준다
+        }
+
+    },false)
+
+    //idx번호만 받던가 메뉴를 받아서 카트에 넣어줌
+    function refreshCart(menu) {
+
+        //메뉴있으면 메뉴를 push, 없으면 refreshCart()를 파라미터 없이 호출
+        if(menu){
+            cart.push(menu)
+        }// 자바스크립트는 파라미터가 맞지않아도 상관없다
+
+        //cart ul 갱신
+        let str = "";
+        for (let i = 0; i < cart.length; i++){
+            const name = cart[i].name // 자바였으면 get을 쓸 것
+            const price = cart[i].price
+            str += `<li>${name} - ${price}<button data-idx="${i}">X</button></li>` // button이 idx값을 가지고 있도록 커스텀
+        }
+        cartDiv.innerHTML = str
+    }
+
+    cartDiv.addEventListener("click",function (e){
+
+        const target = e.target
+        if(target.matches("button")){
+            //버튼에 있는 인덱스 번호 가져옴
+            const idx = target.getAttribute("data-idx")
+            console.log(idx)
+
+            cart.splice(idx,1) // 하나만 뺀다
+
+            refreshCart()// -> 어플리케이션(웹)의 모델(데이터)바뀜 : cart의 화면 변경해야한다. (메서드면 refreshCart)
+        }
+    },false)
+
+</script>
+
+</body>
+</html>
