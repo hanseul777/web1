@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button class="btn">B1</button>
+<button class="btn">B2</button>
+<button class="btn">B3</button>
+<button class="btn">B4</button>
+<button class="btn">B5</button>
+
+<script>
+
+    //전통적인방법
+    var arr = document.querySelectorAll(".btn")
+
+
+    for(var i = 0; i < arr.length; i++){ // 자바는 for 안에서 변수가 선언되면 밖으로 나갈 수 없음 BUT JS에는 호이스팅이 있어서 var i가 위쪽으로 호이스팅
+
+        var button = arr[i]
+
+        button.addEventListener("click", function () {
+            alert("VALUE : " + i) // i가 5를 찍고 break라서 value가 5
+        }, false)
+    }
+
+</script>
+
+
+</body>
+</html>

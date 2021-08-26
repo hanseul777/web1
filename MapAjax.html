@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .map{
+        width:100vw;
+        height:50vh;
+        background-color: mediumpurple;
+    }
+</style>
+
+<div id=" map">
+
+</div>
+
+<div>
+    <button class="btn" data-cat="1">한식</button>
+    <button class="btn" data-cat="2">양식</button>
+    <button class="btn" data-cat="3">일식</button>
+    <button class="btn" data-cat="4">분식</button>
+</div>
+<div>
+    <ul class="storeList">
+
+    </ul>
+</div>
+
+<script>
+    const ipObj = {
+        1:"http://192.168.0.40:8080/stores/all",
+        2:"http://192.168.0.42:8080/stores/all",
+        3:"http://192.168.0.24:8080/stores/all",
+        4:"http://localhost:8080/stores/all"
+    }
+
+    const storeList = document.querySelector(".storeList")
+
+    //loop
+    document.querySelectorAll(".btn").forEach((ele) => {
+        // console.log(ele)
+        const type = ele.getAttribute("data-cat")
+        // console.log(type)
+
+        ele.addEventListener("click", () => {
+            // console.log(type) // 함수안에 type이라는 변수가 없음 > 감싸고 있는 함수를 확인해서 type변수를 찾음
+            loadStoreData(type) //위에서 가져온 type정보를 이용해서 loadStoreData()를 사용
+        }, false)
+    })
+
+    // 클릭하면 data-cat를 알아옴 -> ip를 알 수 있음
+    async function loadStoreData(type){
+        const url = ipObj[type]
+
+        const response = await fetch(url)
+        const arr = await response.json() //await : json()을 동기화하듯이 호출할 수 있다
+
+        console.log(arr)
+
+        makeList(arr)
+    }
+
+    //기존에 있던 cat의 목록은 지워지고 새로운걸 불러와야 한다. -> makeList를 다시 호출하면 store.innerHTML은 지워졌다가 다시 불러와야함
+    function makeList(arr){
+        let str="";
+        for(let i = 0; i < arr.length; i++){
+            const {sno,name,lat,lag,menus} = arr[i] //구조분해할당
+
+            str += `<li> ${sno} --- ${name} </li>`
+        }
+        storeList.innerHTML = str
+    }
+
+</script>
+</body>
+</html>

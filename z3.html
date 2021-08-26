@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    const todoService = (function TodoService(){
+        const arr = [] //외부에서 접근불가
+
+        function addTodo(todo){
+            arr.push(todo)
+        }
+
+        function getAll(){
+            return arr
+        }
+
+        return {addTodo:addTodo, getAll:getAll}//객체리터럴
+    })()
+
+    console.log(todoService)
+
+    todoService.addTodo({title:'AAAA'})
+    todoService.addTodo({title:'BBBB'})
+    todoService.addTodo({title:'CCCC'})
+
+    console.log(todoService.getAll())
+
+
+</script>
+
+</body>
+</html>

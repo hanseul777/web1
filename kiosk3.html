@@ -89,7 +89,8 @@
 
     var sum = 0;
     for (var i = 0; i<priceSpans.length; i++){
-      parseInt(priceSpans[i].innerHTML) // innerHTMl은 문자열이라서 int값으로 변경
+      totalPrice = parseInt(priceSpans[i].innerHTML) // innerHTMl은 문자열이라서 int값으로 변경
+      sum += totalPrice;
     }
     total.innerHTML = sum;
   }

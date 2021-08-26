@@ -14,9 +14,13 @@
     <ul class="cart">
 
     </ul>
-    <h3 class="total"></h3>
+
 </div>
 
+
+<div>
+    <h3 class="total"></h3>
+</div>
 <script>
 
     //개발자가 마음대로 속성을 추가할 수 있음.
@@ -34,6 +38,7 @@
     //문서가 제일먼저 열리면? 메뉴 보여주기
     const menusDiv = document.querySelector(".menus")
     const cartDiv = document.querySelector(".cart")
+    const total = document.querySelector(".total")
 
     let str = "";
     // 한번에 4개의 <li>를 만들어서 한 번에 바꿔줌
@@ -77,6 +82,8 @@
             str += `<li>${name} - ${price}<button data-idx="${i}">X</button></li>` // button이 idx값을 가지고 있도록 커스텀
         }
         cartDiv.innerHTML = str
+
+        makeTotal()
     }
 
     cartDiv.addEventListener("click",function (e){
@@ -90,8 +97,25 @@
             cart.splice(idx,1) // 하나만 뺀다
 
             refreshCart()// -> 어플리케이션(웹)의 모델(데이터)바뀜 : cart의 화면 변경해야한다. (메서드면 refreshCart)
+
+            makeTotal()
         }
     },false)
+
+    function makeTotal(){
+
+        let sum = 0;
+
+        for(let i = 0; i < cart.length; i++){
+
+            const cartDetail = cart[i]
+
+            console.log(cartDetail)
+            sum += parseInt(cartDetail.price)
+        }
+        total.innerHTML = sum
+    }
+
 
 </script>
 
